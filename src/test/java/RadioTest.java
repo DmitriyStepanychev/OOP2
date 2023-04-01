@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class RadioTest {
 
@@ -139,4 +141,45 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+
+
+
+    @ParameterizedTest
+    @CsvFileSource(files = "src/test/resources/radioparametr.csv")
+    public void testUserSetRadioCount(int stationsCount, int testCurrentRadioFrequency, int expected) {
+        Radio radio = new Radio(stationsCount);
+        radio.setCurrentRadioFrequency(testCurrentRadioFrequency);
+
+        int actual = radio.getCurrentRadioFrequency();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(files = "src/test/resources/increasevolumeparametr.csv")
+    public void testIncreaseVolumeWithUserSetRadioCount(int stationsCount, int tesCurrentRadioFrequency, int expected) {
+        Radio radio = new Radio(stationsCount);
+        radio.setCurrentRadioFrequency(tesCurrentRadioFrequency);
+
+        radio.nextRadioFrequency();
+
+        int actual = radio.getCurrentRadioFrequency();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource (files = "src/test/resources/decreasevolumeparametr.csv")
+    public void testDecreaseVolumeWithUserSetRadioCount(int stationsCount, int testCurrentRadioFrequency, int expected) {
+        Radio radio = new Radio(stationsCount);
+        radio.setCurrentRadioFrequency(testCurrentRadioFrequency);
+
+        radio.prevRadioFrequency();
+
+        int actual = radio.getCurrentRadioFrequency();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
 }

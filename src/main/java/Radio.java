@@ -1,34 +1,43 @@
 public class Radio {
     private int currentRadioFrequency;
     private int currentRadioVolume;
+    private int maxStationFrequency = 9;
+    private int minStationFrequency = 0;
+
+    public Radio() {
+    }
+
+    public Radio(int stationsCount) {
+        maxStationFrequency = stationsCount - 1;
+    }
 
     public int getCurrentRadioFrequency() {
         return currentRadioFrequency;
     }
 
     public void setCurrentRadioFrequency(int newCurrentRadioFrequency) {
-        if (newCurrentRadioFrequency < 0) {
+        if (newCurrentRadioFrequency < minStationFrequency) {
             return;
         }
-        if (newCurrentRadioFrequency > 9) {
+        if (newCurrentRadioFrequency > maxStationFrequency) {
             return;
         }
         currentRadioFrequency = newCurrentRadioFrequency;
     }
 
     public void nextRadioFrequency() {
-        if (currentRadioFrequency < 9) {
+        if (currentRadioFrequency < maxStationFrequency) {
             currentRadioFrequency++;
         } else {
-            currentRadioFrequency = 0;
+            currentRadioFrequency = minStationFrequency;
         }
     }
 
     public void prevRadioFrequency() {
-        if (currentRadioFrequency > 0) {
+        if (currentRadioFrequency > minStationFrequency) {
             currentRadioFrequency--;
         } else {
-            currentRadioFrequency = 9;
+            currentRadioFrequency = maxStationFrequency;
         }
     }
 
